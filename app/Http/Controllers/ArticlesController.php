@@ -74,6 +74,8 @@ class ArticlesController extends Controller
 
     public function edit(Article $article)
     {
+
+        
         $categories = Category::all();
         return view('articles.edit', [
             'article' => $article,
