@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\UniqueEmail;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class UsersRequest extends FormRequest
 {
@@ -26,6 +28,10 @@ class UsersRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
+//            'email' => [
+//                'required',
+//                new UniqueEmail($request)
+//            ],
             'password' => 'required'
         ];
     }

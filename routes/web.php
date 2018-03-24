@@ -46,4 +46,8 @@ Route::group(['middleware' => 'auth'
 
     Route::resource('comments', 'CommentsController');
 
+    Route::resource('files', 'FilesController');
+
+    Route::resource('roles', 'RolesController');
+
 });

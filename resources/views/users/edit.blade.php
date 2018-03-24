@@ -33,6 +33,21 @@
             <input placeholder="WPROWADŹ NOWE HASŁO" type="password" class="form-control" value="" name="password">
         </div>
 
+        <div class="form-group">
+            @foreach($roles as $role)
+
+                <label>
+
+                    @if(in_array($role->id, $flatRole))
+                        <input checked type="checkbox" name="roles_id[]" value="{{"$role->id"}}"/> {{$role->name}}
+                    @else
+                        <input type="checkbox" name="roles_id[]" value="{{"$role->id"}}"/> {{$role->name}}
+                    @endif
+                </label>
+
+            @endforeach
+        </div>
+
 
         <div class="form-group">
             <button class="btn btn-primary">Zapisz</button>

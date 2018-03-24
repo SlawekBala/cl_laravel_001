@@ -27,6 +27,16 @@
             <input placeholder="WPROWADŹ HASŁO" type="password" class="form-control" name="password">
         </div>
 
+        <div class="form-group">
+            @foreach($roles as $role)
+
+                <label>
+                    <input type="checkbox" name="roles_id[]" value="{{"$role->id"}}"> {{$role->name}}
+                </label>
+
+            @endforeach
+        </div>
+
 
         <div class="form-group">
             <button class="btn btn-primary">Zapisz</button>

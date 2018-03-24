@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Category;
+use App\File;
 use App\Http\Requests\ArticlesRequest;
 use Illuminate\Http\Request;
 
@@ -32,10 +33,13 @@ class ArticlesController extends Controller
      */
     public function create()
     {
+        $files = File::all();
+
         $categories = Category::all();
 
         return view('articles.create', [
-            'categories' => $categories
+            'categories' => $categories,
+            'files' => $files
         ]);
     }
 
@@ -48,7 +52,9 @@ class ArticlesController extends Controller
     public function store(ArticlesRequest $request)
     {
 
-        Article::create($request->all());
+        $article = Article::create($request->all());
+
+        $article->files()->attach($request->get('files_id'));
 
 //        $article = new Article();
 //        $article->title = $request->title;
@@ -75,11 +81,23 @@ class ArticlesController extends Controller
     public function edit(Article $article)
     {
 
-        
+        $files = File::all();
         $categories = Category::all();
+
+//        $flatSelectedFiles = [];
+//
+//        foreach ($article->files()->get() as $file) {
+//            $flatSelectedFiles[] = $file->id;
+//        }
+
+        //dd($selectedFiles);
+
+
         return view('articles.edit', [
             'article' => $article,
-            'categories' => $categories
+            'categories' => $categories,
+            'files' => $files,
+            'flatSelectedFiles' => $article->files()->pluck('id')->toArray()
         ]);
     }
 
@@ -95,6 +113,8 @@ class ArticlesController extends Controller
 //        $article->save();
 
         $article->update($request->all());
+        $article->files()->sync($request->get('files_id'));
+
         return redirect( route('articles.index'));
     }
 

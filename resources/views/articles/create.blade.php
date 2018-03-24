@@ -34,6 +34,17 @@
         </div>
 
         <div class="form-group">
+            @foreach($files as $file)
+
+                <label>
+                    <img src="/storage/thumb{{$file->file_name}}" alt="">
+                    <input type="checkbox" name="files_id[]" value="{{"$file->id"}}">
+                </label>
+
+            @endforeach
+        </div>
+
+        <div class="form-group">
             <button class="btn btn-primary">Zapisz</button>
         </div>
     </form>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UsersRequest;
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -32,8 +33,11 @@ class UsersController extends Controller
     {
         $users = User::all();
 
+        $roles = Role::all();
+
         return view('users.create', [
-            'users' => $users
+            'users' => $users,
+            'roles' => $roles
         ]);
     }
 
@@ -47,7 +51,10 @@ class UsersController extends Controller
     {
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
-        User::create($data);
+        $user = User::create($data);
+
+        $user->roles()->attach($request->get('roles_id'));
+
         return redirect( route('users.index'));
     }
 
@@ -70,24 +77,28 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+        $roles = Role::all();
+
         return view('users.edit', [
-            'user' => $user
+            'user' => $user,
+            'roles' => $roles,
+            'flatRole' => $user->roles()->pluck('id')->toArray()
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(UsersRequest $request, User $user)
     {
+
+//        $user->update($request->all());
 
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
         $user->update($data);
+
+        $user->roles()->sync($request->get('roles_id'));
+
+
+
         return redirect( route('users.index'));
     }
 
