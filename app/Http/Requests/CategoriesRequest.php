@@ -24,14 +24,14 @@ class CategoriesRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|email'
+//            'name' => 'required|email'
         ];
     }
 
     public function messages() {
         return [
             'name.required'	=> 'pole wymagane',
-            'name.email' => 'to musi byc email'
+//            'name.email' => 'to musi byc email'
         ];
     }
 }

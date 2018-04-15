@@ -27,9 +27,19 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+
+                @if(Auth::user())
+                    <a class="nav-link" href="{{ route('articles.index') }}">Artykuły</a>
+                    <a class="nav-link" href="{{ route('categories.index') }}">Kategorie</a>
+                    <a class="nav-link" href="{{ route('users.index') }}">Użytkownicy</a>
+                    <a class="nav-link" href="{{ route('comments.index') }}">Komentarze</a>
+                    <a class="nav-link" href="{{ route('files.index') }}">Pliki</a>
+                    <a class="nav-link" href="{{ route('roles.index') }}">Role</a>
+@endif
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->

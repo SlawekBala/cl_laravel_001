@@ -24,14 +24,17 @@
         </div>
 
         <div class="form-group">
-            <select name="category_id" class="form-control">
-                @foreach($categories as $category)
-
-                <option value="{{$category->id}}">{{$category->name}}</option>
-
-                @endforeach
-            </select>
+            <categories filed_name="category_id" :items="{{$categories}}"></categories>
         </div>
+        {{--<div class="form-group">--}}
+            {{--<select name="category_id" class="form-control">--}}
+                {{--@foreach($categories as $category)--}}
+
+                {{--<option value="{{$category->id}}">{{$category->name}}</option>--}}
+
+                {{--@endforeach--}}
+            {{--</select>--}}
+        {{--</div>--}}
 
         <div class="form-group">
             @foreach($files as $file)
